@@ -9,15 +9,15 @@ namespace SiteFactoryHelpSite.Controllers
     [Route("api/[controller]")]
     public class CrackController : Controller
     {
-        //private static string Command = @"/C d:\toolkit\crack ";
-        private static string Command = @"/C  md d:\crackdemo ";
+        private static string Command = @"/C d:\toolkit\crack ";
+        //private static string Command = @"/C  md d:\crackdemo ";
         // POST api/values
         [HttpPost]
         public void Post([FromBody]CrackInfo crackInfo)
         {
-            //string command = string.Format(Command + "\"{0}\" \"{1}\" \"{2}\" \"{3}\"", crackInfo.Version, crackInfo.Product, crackInfo.Domain, crackInfo.SN);
+            string command = string.Format(Command + "\"{0}\" \"{1}\" \"{2}\" \"{3}\"", crackInfo.Version, crackInfo.Product, crackInfo.Domain, crackInfo.SN);
 
-            Process process = Process.Start("CMD.exe", Command);
+            Process process = Process.Start("CMD.exe", command);
            
         }
     }
