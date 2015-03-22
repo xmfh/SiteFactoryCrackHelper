@@ -1,0 +1,10 @@
+{
+    "version": "1.0.0",
+    "name": "SiteFactoryHelpSite",
+    "private": true,
+    "devDependencies": {
+        "gulp": "3.8.11",
+        "gulp-uglify": "1.1.0",
+        "gulp-concat": "2.5.2"
+    }
+}

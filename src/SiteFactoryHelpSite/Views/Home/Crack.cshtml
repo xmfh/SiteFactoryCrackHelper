@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="/content/bootstrap-material-design.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <h1>SiteFactory 解密</h1>
+        <p class="lead">
+            输入相关信息，针对SF的各种版本进行解密。
+        </p>
+        <form action="/api/crack" method="post">
+            <div class="form-group">
+                <label for="Product">
+                    Product:
+                </label>
+                <select name="Product" id="Product" class="form-control" >
+                    <option value="f" checked="checked">SiteFactory</option>
+                    <option value="g">SmartGov</option>
+                    <option value="s">SmartSchool</option>
+                    <option value="h">Hospatail</option>
+                    <option value="e">Enterprise</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Version">
+                    Version:
+                </label>
+                <input type="text" name="Version" id="Version" class="form-control" value="5.1" />
+            </div>
+            <div class="form-group">
+                <label for="Domain">
+                    Domain:
+                </label>
+                <input type="text" name="Domain" id="Domain" class="form-control" value="www.powereasy.net" />
+            </div>
+            <div class="form-group">
+                <label for="SN">
+                    SN:
+                </label>
+                <input type="text" name="SN" id="SN" class="form-control" value="aaaa-bbbb-cccc-ddd-ggggasdfbc" />
+            </div>
+            <div class="form-group">
+                <label for="analyzer">
+                    解析复杂文本:
+                </label>
+                <textarea name="analyzer" id="analyzer" rows="10" class="form-control" value=""></textarea>
+            </div>
+
+            <input type="submit" value="解密" class="btn btn-primary" />
+            <button type="button" id="btn-analyzer" class="btn btn-info">解析复杂文本</button>
+        </form>
+    </div>
+    <script src="/scripts/jquery.min.js"></script>
+    <script src="/scripts/bootstrap.min.js"></script>
+    <script src="/scripts/bootstrap-material-design.js/material.js"></script>
+    <script src="/scripts/bootstrap-material-design.js/ripples.min.js"></script>
+    <script>
+        $(function () {
+            $.material.init();
+        })
+
+
+        $(function () {
+            var $analyzerBtn = $('#btn-analyzer'),
+                $analyzerSrc = $('#analyzer'),
+                product;
+
+            $analyzerBtn.on('click', function () {
+                var content = $analyzerSrc.val();
+                if (!content) {
+                    return false;
+                }
+
+                $('#Domain').val(analyzerDomain(content));
+
+                $('#SN').val(analyzerSN(content));
+                $('#Version').val(analyzerVersion(content));
+
+                product = anaylzerProduct(content);
+                if (product) {
+                    $('#Product').val(product);
+                }
+                
+            });
+
+            function analyzerDomain(content) {
+                var regex = /\w+\.\w+\.\w+(\.\w+)?(:\d+)?/;
+
+                return regex.exec(content)[0];
+            }
+
+            function analyzerSN(content) {
+                var regex = /\w{5}-\w{5}-\w{5}-\w{5}-\w{5}-\w{12}/;
+
+                return regex.exec(content)[0];
+            }
+
+            function analyzerVersion(content) {
+                var regex = /[4,5]\.[0-9]/g,
+                    result,
+                    version;
+                do {
+                    result = regex.exec(content);
+                    if (result!=null) {
+                        version = result;
+                    }
+                }
+                while (result != null)
+
+                return version;
+            }
+
+            function anaylzerProduct(content) {
+                if (content.indexOf('SmartGov') >= 0) {
+                    return 'g';
+                }
+
+                if (content.indexOf('SiteFactory') >= 0) {
+                    return 'f';
+                }
+                if (content.indexOf('SmartSchool') >= 0) {
+                    return 's';
+                }
+
+                // 医院 ， 企业版未解析。
+            }
+        });
+    </script>
+</body>
+</html>

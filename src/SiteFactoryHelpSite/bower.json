@@ -1,0 +1,10 @@
+{
+    "name": "SiteFactoryHelpSite",
+    "private": true,
+    "dependencies": {
+        "bootstrap-material-design": "",
+        "bootstrap": ""
+    },
+    "exportsOverride": {
+    }
+}
