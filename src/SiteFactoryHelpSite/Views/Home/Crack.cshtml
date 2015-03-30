@@ -11,7 +11,7 @@
         <p class="lead">
             输入相关信息，针对SF的各种版本进行解密。
         </p>
-        <form action="/api/crack" method="post">
+        <form action="/crack/crack" method="post">
             <div class="form-group">
                 <label for="Product">
                     Product:
@@ -53,6 +53,24 @@
             <button type="button" id="btn-analyzer" class="btn btn-info">解析复杂文本</button>
         </form>
     </div>
+
+    <div class="modal fade" id="result-crack" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">解密结果</h4>
+                </div>
+                <div class="modal-body">
+                    <p><i class="mdi-action-assignment-turned-in"></i>解密成功</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="/scripts/jquery.min.js"></script>
     <script src="/scripts/bootstrap.min.js"></script>
     <script src="/scripts/bootstrap-material-design.js/material.js"></script>
@@ -60,6 +78,21 @@
     <script>
         $(function () {
             $.material.init();
+
+            $('form').on('submit', function () {
+
+                var $this = $(this);
+
+                $.post('/crack/crack', $this.serializeArray(), function (data) {
+
+                    console.log(data);
+
+                    $('#result-crack').modal('show');
+                });
+
+
+                return false;
+            });
         })
 
 

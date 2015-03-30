@@ -13,6 +13,10 @@ gulp.task('concat-css', function () {
 
 });
 
+gulp.task('fonts', function () {
+    gulp.src('./bower_components/bootstrap-material-design/fonts/*.*').pipe(gulp.dest("./wwwroot/fonts"));
+})
+
 gulp.task('copy-bmd', function () {
     return gulp.src('./bower_components/bootstrap-material-design/dist/js/*.js').pipe(uglify())
 .pipe(gulp.dest("./wwwroot/scripts/bootstrap-material-design.js"));
